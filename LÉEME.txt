@@ -3,7 +3,7 @@ Incluye funcionalidades como definir atributos, funciones, herencia y polimorfis
 Es compatible con tu estilo de programación ya que sus funcionalidades se ejecutan de manera independiente.
 
 Cómo programar orientado a objetos?
-Para aprender, sigue el tutorial "Como crear una clase".
+Para aprender, sigue el tutorial "Como crear una clase.hpprgm" (en realidad no es un programa o aplicación por lo que no debes arrastrarlos al Kit de conectividad, estos archivos debes abrirlos con un bloc de notas, en él encontrarás el tutorial paso a paso).
 En este tutorial se explica paso a paso como crear una nueva clase.
 También mira los ejemplos en tu idioma respectivo, éstos ejemplos puedes abrirlo
 con un bloc de notas y pegar el código en el editor de un programa o aplicacion de la calculadora HP Prime.
