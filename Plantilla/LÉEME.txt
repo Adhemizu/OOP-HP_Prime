@@ -1,0 +1,3 @@
+"plantilla.hpprgm" es un archivo txt
+
+"programa.hpprgm" es un programa hpprgm que puedes arrastrar al kit de connectividad
