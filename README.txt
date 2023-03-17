@@ -3,7 +3,7 @@ It includes functionalities such as defining attributes, functions, inheritance,
 It is compatible with your programming style as its functionalities are executed independently
 
 How to program object-oriented?
-To learn, follow the "How to create a class" tutorial.
+To learn, follow the "How to create a class.hpprgm" tutorial(it's not a program or application, so you shouldn't drag it to the Connectivity Kit. Instead, you should open these files with a notepad, where you will find the step-by-step tutorial).
 This tutorial explains step by step how to create a new class.
 Also, check out the examples in your respective language, you can open these examples
 with a notepad and paste the code into a program or application editor in the HP Prime calculator.
