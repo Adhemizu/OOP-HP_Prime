@@ -1,0 +1,407 @@
+// Tutorial: Cómo crear una clase
+// Siga los pasos mencionados, al finalizar cada paso se le indica la
+// línea donde continúa el siguiente paso.
+
+#pragma mode( separator(.,;) integer(h64) )
+
+// Paso 1.
+// En este paso instanciamos la subrutina principal de nuestro programa
+// sub-routines
+Main();
+// Fin Paso 1. (Paso 2. ver línea 14)
+
+
+// Paso 2.
+// En este paso creamos las instancias de las subrutinas de nuestra clase.
+// La sintaxis es NombreDeClase_NombreDeFunción();
+// Obligatoriamente debe instanciar NombreDeClase_Class(); ya que ésta será
+// la que construirá la clase
+// Además deberás reservar la variable NombreDeClase, ya que ésta será utilizada para identificarla por los funciones de programación orientada a objetos de la API Nabla, es decir no debe utilizarla como variable local o global dentro del codigo de tu programa o aplicación.
+
+// Ejemplo: Clase Persona
+Persona_Class();
+Persona_Correr();
+Persona_Hablar();
+Persona_Trabajar();
+Persona_Presentacion();
+// Fin Paso 2. (Paso 3. ver línea 46)
+
+
+// oop functions
+init(); Obj(); def(); s_(); g_();
+type_inheritance(); attr_index(); func_index();
+name_(); className(); class_(); search_func();
+unpack(); isList(); TRANL(); zeros_();
+
+// global vars
+EXPORT Nill:= "Nill";
+
+
+// Paso 5. Define las variables de usuario de los objetos que harán instancia a las clases que has creado:
+EXPORT Persona1;
+EXPORT Persona2;
+// Fin Paso 5. (Paso 6. ver línea 54)
+
+
+// Paso 3. Aquí debes declarar el nombre de tu clase, éste debe coincidir exactamente con el utilizado en el Paso 2 NombreDeClase.
+EXPORT Persona;
+// Fin Paso 3 (Paso 4. ver línea 96)
+
+
+//******************************* Main *********************************
+EXPORT Main()
+BEGIN
+	// Paso 6. La funcion Main() es la funcion que inicia tu programa o aplicación,
+	// tambien puedes iniciarla con START(), en cualquier caso debes llamar a la
+	// función constructora de tus clases antes de iniciar con el cógido de tu
+	// programa o aplicación, instanciandolas con la sub-rutina:
+	// NombreDeClase_Class();
+	// Si tuvieras más de una clase creada, entonces debes instanciarlas a todas:
+	Persona_Class();
+	
+	// En esta sección es donde debes escribir el código de tu programa o aplicación
+	// que estás desarrollando
+	Obj("Persona1", Persona);
+	s_("Persona1", "nombre", "Juan");
+	s_("Persona1", "edad", 24);
+	s_("Persona1", "sexo", "Masculino");
+	s_("Persona1", "nacionalidad", "Boliviano");
+	s_("Persona1", "estatura", 1.65);
+	s_("Persona1", "profesion", "Mecanico");
+	
+	def("Persona1", "Correr", Nill);
+	
+	Obj("Persona2", Persona);
+	s_("Persona2", "nombre", "Maria");
+	s_("Persona2", "edad", 27);
+	s_("Persona2", "sexo", "Femenino");
+	s_("Persona2", "nacionalidad", "Peruana");
+	s_("Persona2", "estatura", 1.62);
+	s_("Persona2", "profesion", "Ingeniera");
+	
+	def("Persona2", "Correr", Nill);
+	def("Persona2", "Presentacion", Nill);
+	def("Persona1", "Presentacion", Nill);
+	// Como puedes observar, las funciones reservadas def(), s_() y g_() ya no utiliza 'self' como lo hacías cuando construías tu clase en la linea 170, ahora debes escribir el nombre de tu objeto como un 'string'
+	// Fin paso 6. (Paso 7. ver línea 394)
+END;
+
+
+// Después de Main(), tu puedes crear las subrutinas que desees y que utilizarás en tu programa o aplicación, ya que ésta API Nabla es compatible con la forma de programar estándar en el lenguaje HP-PPL de HP Prime.
+
+
+
+
+//********************** Clase Persona *************
+// Paso 4. En este paso debes construir tu clase, definiendo sus atributos y funciones.
+Persona_Class()
+BEGIN
+	init(
+		"Persona",
+		{
+			{"nombre", "Ninguno"},
+			{"edad", 0},
+			{"nacionalidad", "Ninguno"},
+			{"sexo", "Ninguno"},
+			{"estatura", 0},
+			{"profesion", "Ninguno"}
+		},
+		{
+			"Correr",
+			"Hablar",
+			"Trabajar",
+			"Presentacion"
+		},
+		Nill
+	);
+END;
+
+// La sintaxis es la siguiente:
+// init(
+	// "NombreDeClase",			1)
+	// {
+		// {"atributo", value}	2)
+	// },
+	// {
+		// "funcion"			3)
+	// },
+	// Clase padre				4)
+// );
+
+// 1) En esta sección debe escribir el nombre de tu clase, utilizando la palabra reservada "NombreDeClase"
+// 2) En esta lista se definen los atributos de su clase, puede agregar más si desea:
+//    {
+//       {"atributo1", value1},
+//       {"atributo2", value2},
+//       {"atributo3", value3},
+//       ...
+//    },
+// El nombre del atributo siempre es un dato de tipo "string" y 'value' puede ser cualquier tipo de dato: real, complejo, simbólico, lista, matriz, string, gráfico, etc.
+// 3) En esta lista se definen los nombres de las funciones de la clase que está creando, puede agregar más si desea:
+//    {
+//       "NombreDeFunción1",
+//       "NombreDeFunción2",
+//       ...
+//    },
+// Deben ser los mismos(respetando mayúsculas y minúsculas) que usted ha instanciado como subrutina al principio en la línea 22, pero el formato cambia de "NombreDeClase_NombreDeFunción" a "NombreDeFunción".
+// 4) En ésta sección usted puede definir las clases de la cual desea heredar sus funciones(si es que han sido creadas anteriormente). El nombre "ClasePadre" debe ser un 'string' y si desea realizar herencia múltiple, en lugar de un único string debe escribir una lista: {"ClasePadre1", "ClasePadre2", ...}, y si no desea definir herencia entonces debe escribir 'Nill'(es una palabra reservada declarada en la línea 37 como variable de usuario)
+
+// Ahora lo que sigue es que debes definir las funciones y su codificación, ésta debe tener la siguiente estructura:
+
+// NombreDeClase_NombreDeFunción(self)
+// BEGIN
+
+// END;
+
+// 'self' es una variable que hace referencia al nombre del objeto de la clase(puedes utilizar cualquier otra variable si así lo deseas).
+// Si deseas acceder a los atributos definidos, puede hacerlo mediante las funciones reservadas: g_() y s_() definidas en la líneas 298 y 293 respectivamente.
+
+// Para obtener el valor de un atributo la sintaxis es g_("NombreDeObjeto", "atributo")
+// Para actualizar el valor que contiene un atributo, la sintaxis es:
+// s_("NombreDeObjeto", "atributo", value)
+// 'value' puede ser cualquier tipo de dato: real, complejo, simbólico, lista, etc.
+
+// Si desea obtener el atributo dentro de una función de la clase
+// puedes seguir este ejemplo:
+
+// NombreDeClase_NombreDeFunción(self)
+// BEGIN
+//	// llamar atributo
+//	LOCAL atributo1:= g_(self, "atributo1");
+//	
+//	// actualizar atributo
+//	s_(self, "atributo1", value)
+// END;
+
+// También puede declarar más parámetros de la función de una clase:
+
+// NombreDeClase_NombreDeFunción(self, parámetro1, parámetro2, ...)
+// BEGIN
+
+// END;
+
+// Para llamar a una función de tu clase la sintaxis es:
+// def("NombreDeObjeto", "función", {parámetro})
+// {parámetro} es una lista que contiene los parámetros de tu funcion, si posee
+// múltiples parámetros entonces la sintaxis es:
+// def("NombreDeObjeto", "función", {parámetro1, parámetro2, ...})
+// y si la función de tu clase no requiere parámetros, la sintaxis es:
+// def("NombreDeObjeto", "función", Nill)
+
+// Si deseas acceder a una función de la clase anidada en otra función de tu clase,
+// aquí te presento un ejemplo:
+
+// NombreDeClase_NombreDeFunción(self)
+// BEGIN
+//		// si espera argumentos
+//		def(self, "funcion", {argumento1, argumento2, ...});
+		
+//		// Si no tiene parámetros
+//		def(self, "funcion", Nill);
+// END;
+
+// A continuación mira algunas funciones de la clase Persona:
+Persona_Correr(self)
+BEGIN
+	LOCAL nombre:= g_(self, "nombre");
+	MSGBOX("Yo " + nombre + ", estoy corriendo");
+END;
+
+Persona_Hablar(self)
+BEGIN
+	LOCAL nombre:= g_(self, "nombre");
+	MSGBOX("Yo " + nombre + ", estoy hablando");
+END;
+
+Persona_Trabajar(self)
+BEGIN
+	LOCAL nombre:= g_(self, "nombre");
+	MSGBOX("Yo " + nombre + ", estoy trabajando");
+END;
+
+Persona_Presentacion(self)
+BEGIN
+	LOCAL nombre:= g_(self, "nombre");
+	LOCAL edad:= g_(self, "edad");
+	LOCAL nacionalidad:= g_(self, "nacionalidad");
+	LOCAL sexo:= g_(self, "sexo");
+	LOCAL estatura:= g_(self, "estatura");
+	LOCAL profesion:= g_(self, "profesion");
+	
+	PRINT;
+	PRINT("Mi nombre es " + nombre);
+	PRINT("Tengo " + edad + " años");
+	PRINT("Mi nacionalidad es " + nacionalidad);
+	PRINT("Sexo: " + sexo);
+	PRINT("Mi estatura es " + estatura);
+	PRINT("Mi profesión es " + profesion);
+	WAIT;
+END;
+
+// Fin Paso 4. (Paso 5. ver línea 40)
+
+
+//******************************* class methods *********************************
+init(object, attrib, mthd, inh)
+BEGIN
+	// {Class Name, Object Name, attributes vars, attributes values, type inh, class inh}
+	attrib:= TRANL(attrib);
+	LOCAL n_atr:= attrib(1);
+	LOCAL v_atr:= attrib(2);
+	LOCAL tinh:= type_inheritance(inh);
+	LOCAL list:= {object, Nill, n_atr, v_atr, mthd, tinh, inh};
+	EXPR(object + ":= list");
+END;
+
+
+Obj(name, obj_class)
+BEGIN
+	IF TYPE(obj_class(1)) == 2 THEN
+		obj_class(2):= name;
+		EXPR(name + ":= obj_class");
+	ELSE
+		obj_class(1,2):= name;
+		EXPR(name + ":= obj_class(1)");
+		LOCAL i;
+		FOR i:=2 TO SIZE(obj_class) DO
+			s_(name, obj_class(i,1), obj_class(i,2));
+		END;
+	END;
+END;
+
+
+def(self, func, args)
+BEGIN
+	LOCAL class_obj:= class_(self, func);
+	LOCAL name_obj:=  STRING(name_(self));
+	CASE
+		IF isList(args) THEN
+			LOCAL args_:= ΣLIST("args"+MAKELIST("("+X+")",X,1,SIZE(args),1)+CONCAT(MAKELIST(",",X,1,SIZE(args)-1,1),""));
+			EXPR(class_obj + "_" + func + "(" + name_obj + "," + args_ + ")");
+		END;
+		IF TYPE(args)==2 THEN
+			IF args == Nill then
+				EXPR(class_obj + "_" + func + "(" + name_obj + ")");
+			ELSE
+				EXPR(class_obj + "_" + func + "(" + name_obj + ",args)");
+			END;
+		END;
+		EXPR(class_obj + "_" + func + "(" + name_obj + ",args)");
+	END
+END;
+
+s_(self, var, val) //save
+BEGIN
+	EXPR(self + "(4," + attr_index(self, var) + "):=val");
+END;
+
+g_(self, var) //get
+BEGIN
+	RETURN EXPR(self + "(4," + attr_index(self, var) + ")");
+END;
+
+type_inheritance(args)
+BEGIN
+	// 0:Nill  1:"MainWindow"  2:{"MainWindow", "Button"}
+	RETURN IFTE(isList(args), 2, IFTE(args==Nill, 0, 1));
+END;
+
+attr_index(obj, attr)
+BEGIN
+	RETURN POS(EXPR(obj + "(3)"), attr);
+END;
+
+func_index(obj, func)
+BEGIN
+	RETURN POS(EXPR(obj + "(5)"), func);
+END;
+
+name_(self)
+BEGIN
+	RETURN EXPR(self + "(2)");
+END;
+
+className(self)
+BEGIN
+	RETURN EXPR(self + "(1)");
+END;
+
+class_(self, func)
+BEGIN
+	// 0:Nill  1:"MainWindow"  2:{"MainWindow", "Button"}
+	self:= EXPR(self + "(1)");
+	LOCAL type_inh:= EXPR(self + "(6)");
+	CASE
+		IF type_inh == 0 THEN
+			RETURN self;
+		END;
+		IF type_inh == 1 THEN
+			RETURN IFTE(func_index(self, func), self, EXPR(self + "(7)"));
+		END;
+		IF type_inh == 2 THEN
+			RETURN IFTE(func_index(self, func), self, search_func(EXPR(self + "(7)"), func));
+		END;
+	END;
+END;
+
+search_func(list, func)
+BEGIN
+	LOCAL i, out;
+	FOR i:=1 TO SIZE(list) DO
+		IF func_index(list(i), func) THEN
+			out:= list(i);
+			BREAK;
+		END
+	END;
+	RETURN out;
+END;
+
+unpack(list)
+BEGIN
+	list:= STRING(list);
+	RETURN list(2, SIZE(list)-2);
+END;
+
+isList(val)
+BEGIN
+	RETURN TYPE(val)==6;
+END;
+
+TRANL(matriz)
+BEGIN
+	LOCAL i,j,dim_n,dim_m;
+	LOCAL matr_r;
+	dim_n:=SIZE(matriz);
+	dim_m:=SIZE(matriz(1));
+	matr_r:= zeros_({dim_m, dim_n});
+	FOR i:=1 TO dim_n DO
+		FOR j:=1 TO dim_m DO
+			matr_r(j,i):=matriz(i,j);
+		END;
+	END;
+	RETURN matr_r;
+END;
+
+zeros_(len)
+BEGIN
+	IF isList(len) THEN
+		RETURN MAKELIST(MAKELIST(0,Y,1,len(2),1),X,1,len(1),1);
+	ELSE
+		RETURN MAKELIST(0,X,1,len,1);
+	END;
+END;
+
+// Paso 7. Aquí finaliza el tutorial, ten en cuenta que sólo te he indicado como utilizar la API Nabla, la sintaxis para programar orientado a objetos.
+// Si quieres entender como es el funcionamiento interno, puedes revisar las sub-rutinas que comienzan en la línea 244 hasta el final.
+
+// Contáctame:
+// Autor: Adhemar Mizushima, Marzo 2023
+// Facebook 1: https://www.facebook.com/adhemar.mizushima.14/
+// Facebook 2: https://www.facebook.com/NablaTec
+// YouTube: https://www.youtube.com/@Nabla-Tec
+// E-mail: adhemar.mm@gmail.com
+// Whatsapp: +591 71072659
+
+// Sigue éste proyecto en GitHub:
+// https://github.com/Adhemizu/OOP-HP_Prime
+// Página: https://sites.google.com/view/nabla-tec/

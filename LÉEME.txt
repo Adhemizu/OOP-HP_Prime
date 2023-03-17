@@ -1,0 +1,23 @@
+OOP API Nabla es una adaptación del paradigma de programación orientado a objetos.
+Incluye funcionalidades como definir atributos, funciones, herencia y polimorfismo.
+Es compatible con tu estilo de programación ya que sus funcionalidades se ejecutan de manera independiente.
+
+Cómo programar orientado a objetos?
+Para aprender, sigue el tutorial "Como crear una clase".
+En este tutorial se explica paso a paso como crear una nueva clase.
+También mira los ejemplos en tu idioma respectivo, éstos ejemplos puedes abrirlo
+con un bloc de notas y pegar el código en el editor de un programa o aplicacion de la calculadora HP Prime.
+
+Ten en cuenta que ésta es una primera versión, los bugs y errores se irán corrigiendo eventualmente.
+
+Contáctame:
+	Autor: Adhemar Mizushima, Marzo 2023
+	Facebook 1: https://www.facebook.com/adhemar.mizushima.14/
+	Facebook 2: https://www.facebook.com/NablaTec
+	YouTube: https://www.youtube.com/@Nabla-Tec
+	E-mail: adhemar.mm@gmail.com
+	Whatsapp: +591 71072659
+
+Sigue este proyecto en GitHub:
+	https://github.com/Adhemizu/OOP-HP_Prime
+	Página: https://sites.google.com/view/nabla-tec/
