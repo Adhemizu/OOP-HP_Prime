@@ -1,0 +1,1 @@
+These sample files are not .hpprgm programs or applications, so you should not drag them to the Connectivity Kit. Instead, you should open these files with a notepad, where you will find the code.

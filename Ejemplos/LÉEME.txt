@@ -1,0 +1,1 @@
+Éstos archivos de ejemplos no son programas o aplicaciones .hpprgm por lo que no debes arrastrarlos al Kit de conectividad, estos archivos debes abrirlos con un bloc de notas, en él encontrarás la codificación.

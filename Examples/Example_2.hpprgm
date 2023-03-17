@@ -1,0 +1,331 @@
+// Contact me:
+// Autor: Adhemar Mizushima, Marzo 2023
+// Facebook 1: https://www.facebook.com/adhemar.mizushima.14/
+// Facebook 2: https://www.facebook.com/NablaTec
+// YouTube: https://www.youtube.com/@Nabla-Tec
+// E-mail: adhemar.mm@gmail.com
+// Whatsapp: +591 71072659
+
+// Follow this project on GitHub:
+// https://github.com/Adhemizu/OOP-HP_Prime
+// Page: https://sites.google.com/view/nabla-tec/
+
+
+// Description: This program example consists of creating two classes named 'Animal' and 'Dog'. The Animal class will inherit its functions to the dog class using the syntax explained in the tutorial. Additionally, we will create a third class named 'Car' that is not related to the previous classes, but nevertheless, it has an identical function named 'Move'.
+
+// In summary, I will show you how to inherit functions from a class and how to use polymorphism.
+
+
+#pragma mode( separator(.,;) integer(h64) )
+
+// sub-routines
+Main();
+
+Animal_Class();
+Animal_Eat();
+Animal_Move();
+
+Dog_Class();
+Dog_Bark();
+Dog_Run();
+
+Car_Class();
+Car_Move();
+Car_Introduction();
+
+
+// oop functions
+init(); Obj(); def(); s_(); g_();
+type_inheritance(); attr_index(); func_index();
+name_(); className(); class_(); search_func();
+unpack(); isList(); TRANL(); zeros_();
+
+// global vars
+EXPORT Nill:= "Nill";
+
+EXPORT Animal;
+EXPORT Dog;
+EXPORT Car;
+
+EXPORT Animal1;
+EXPORT Dog1;
+EXPORT Car1;
+
+//******************************* Main *********************************
+EXPORT Main()
+BEGIN
+	// Build classes
+	Animal_Class();
+	Dog_Class();
+	Car_Class();
+	
+	// Program
+	
+	Obj("Animal1", {Animal,
+		{"name", "Turtle"}
+	});
+	
+	// Inheritance occurs in the Dog class, see line 128
+	Obj("Dog1", {Dog,
+		{"name", "Duke"}
+	});
+	
+	Obj("Car1", {Car,
+		{"brand", "Toyota"},
+		{"model", "Hilux"},
+		{"year", 2005}
+	});
+	
+	// Polymorphism:
+	LOCAL i;
+	LOCAL list:= {"Animal1", "Dog1", "Car1"};
+	FOR i:=1 TO 3 DO
+		def(list(i), "Move", Nill);
+	END; // Note that at no point was the Move function defined in the Dog class.
+END;
+
+
+// ************* Class Animal *************
+Animal_Class()
+BEGIN
+	init(
+		"Animal",
+		{
+			{"name", "None"}
+		},
+		{
+			"Eat",
+			"Move"
+		},
+		Nill
+	);
+END;
+
+Animal_Eat(self)
+BEGIN
+	MSGBOX("I'm eating :D.");
+END;
+
+Animal_Move(self)
+BEGIN
+	LOCAL name:= g_(self, "name");
+	MSGBOX("I'm " + name + ", I'm moving :D");
+END;
+
+
+// ************* Class Dog *************
+Dog_Class()
+BEGIN
+	init(
+		"Dog",
+		{
+			{"name", "None"}
+		},
+		{
+			"Bark",
+			"Run"
+		},
+		"Animal"
+	);
+	// In the last argument: "Animal" on line 128, it indicates the parent class from which it will inherit its functions.
+END;
+
+Dog_Bark(self)
+BEGIN
+	MSGBOX("I'm barking!, woof! woof! woof! :D");
+END;
+
+Dog_Run(self)
+BEGIN
+	MSGBOX("Look at me, human, I'm running! woof! :D");
+END;
+
+
+// ************* Class Car *************
+Car_Class()
+BEGIN
+	init(
+		"Car",
+		{
+			{"brand", "None"},
+			{"model", "None"},
+			{"year", 0}
+		},
+		{
+			"Move",
+			"Introduction"
+		},
+		Nill
+	);
+END;
+
+Car_Move(self)
+BEGIN
+	LOCAL brand:= g_(self, "brand");
+	LOCAL model:= g_(self, "model");
+	MSGBOX("I, " + brand + " " + model + ", I'm moving");
+END;
+
+Car_Introduction(self)
+BEGIN
+	LOCAL brand:= g_(self, "brand");
+	LOCAL model:= g_(self, "model");
+	LOCAL year:= g_(self, "year");
+	PRINT;
+	PRINT("brand: " + brand);
+	PRINT("model: " + model);
+	PRINT("year: " + year);
+	WAIT;
+END;
+
+
+
+//******************************* class methods *********************************
+init(object, attrib, mthd, inh)
+BEGIN
+	// {Class Name, Object Name, attributes vars, attributes values, type inh, class inh}
+	attrib:= TRANL(attrib);
+	LOCAL n_atr:= attrib(1);
+	LOCAL v_atr:= attrib(2);
+	LOCAL tinh:= type_inheritance(inh);
+	LOCAL list:= {object, Nill, n_atr, v_atr, mthd, tinh, inh};
+	EXPR(object + ":= list");
+END;
+
+
+Obj(name, obj_class)
+BEGIN
+	IF TYPE(obj_class(1)) == 2 THEN
+		obj_class(2):= name;
+		EXPR(name + ":= obj_class");
+	ELSE
+		obj_class(1,2):= name;
+		EXPR(name + ":= obj_class(1)");
+		LOCAL i;
+		FOR i:=2 TO SIZE(obj_class) DO
+			s_(name, obj_class(i,1), obj_class(i,2));
+		END;
+	END;
+END;
+
+
+def(self, func, args)
+BEGIN
+	LOCAL class_obj:= class_(self, func);
+	LOCAL name_obj:=  STRING(name_(self));
+	CASE
+		IF isList(args) THEN
+			LOCAL args_:= ΣLIST("args"+MAKELIST("("+X+")",X,1,SIZE(args),1)+CONCAT(MAKELIST(",",X,1,SIZE(args)-1,1),""));
+			EXPR(class_obj + "_" + func + "(" + name_obj + "," + args_ + ")");
+		END;
+		IF TYPE(args)==2 THEN
+			IF args == Nill then
+				EXPR(class_obj + "_" + func + "(" + name_obj + ")");
+			ELSE
+				EXPR(class_obj + "_" + func + "(" + name_obj + ",args)");
+			END;
+		END;
+		EXPR(class_obj + "_" + func + "(" + name_obj + ",args)");
+	END
+END;
+
+s_(self, var, val) //save
+BEGIN
+	EXPR(self + "(4," + attr_index(self, var) + "):=val");
+END;
+
+g_(self, var) //get
+BEGIN
+	RETURN EXPR(self + "(4," + attr_index(self, var) + ")");
+END;
+
+type_inheritance(args)
+BEGIN
+	// 0:Nill  1:"MainWindow"  2:{"MainWindow", "Button"}
+	RETURN IFTE(isList(args), 2, IFTE(args==Nill, 0, 1));
+END;
+
+attr_index(obj, attr)
+BEGIN
+	RETURN POS(EXPR(obj + "(3)"), attr);
+END;
+
+func_index(obj, func)
+BEGIN
+	RETURN POS(EXPR(obj + "(5)"), func);
+END;
+
+name_(self)
+BEGIN
+	RETURN EXPR(self + "(2)");
+END;
+
+className(self)
+BEGIN
+	RETURN EXPR(self + "(1)");
+END;
+
+class_(self, func)
+BEGIN
+	// 0:Nill  1:"MainWindow"  2:{"MainWindow", "Button"}
+	self:= EXPR(self + "(1)");
+	LOCAL type_inh:= EXPR(self + "(6)");
+	CASE
+		IF type_inh == 0 THEN
+			RETURN self;
+		END;
+		IF type_inh == 1 THEN
+			RETURN IFTE(func_index(self, func), self, EXPR(self + "(7)"));
+		END;
+		IF type_inh == 2 THEN
+			RETURN IFTE(func_index(self, func), self, search_func(EXPR(self + "(7)"), func));
+		END;
+	END;
+END;
+
+search_func(list, func)
+BEGIN
+	LOCAL i, out;
+	FOR i:=1 TO SIZE(list) DO
+		IF func_index(list(i), func) THEN
+			out:= list(i);
+			BREAK;
+		END
+	END;
+	RETURN out;
+END;
+
+unpack(list)
+BEGIN
+	list:= STRING(list);
+	RETURN list(2, SIZE(list)-2);
+END;
+
+isList(val)
+BEGIN
+	RETURN TYPE(val)==6;
+END;
+
+TRANL(matriz)
+BEGIN
+	LOCAL i,j,dim_n,dim_m;
+	LOCAL matr_r;
+	dim_n:=SIZE(matriz);
+	dim_m:=SIZE(matriz(1));
+	matr_r:= zeros_({dim_m, dim_n});
+	FOR i:=1 TO dim_n DO
+		FOR j:=1 TO dim_m DO
+			matr_r(j,i):=matriz(i,j);
+		END;
+	END;
+	RETURN matr_r;
+END;
+
+zeros_(len)
+BEGIN
+	IF isList(len) THEN
+		RETURN MAKELIST(MAKELIST(0,Y,1,len(2),1),X,1,len(1),1);
+	ELSE
+		RETURN MAKELIST(0,X,1,len,1);
+	END;
+END;
